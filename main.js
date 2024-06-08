@@ -24,7 +24,7 @@ let scoreCounter = ()=>{
         document.querySelector("#timer").textContent = timer;
       } else {
         gameOver.classList.add("active");
-        // gameOver.innerHTML = "Game Over! You Ran Out of Time";
+        gameOver.children[2].textContent = "YOU RAN OUT OF TIME";
         bubbleContainer.innerHTML = "";
         clearInterval(timeCounter);
         resizeObserver.disconnect();
@@ -86,15 +86,23 @@ let scoreCounter = ()=>{
       let clickedBubble = Number(e.target.textContent);
       if (clickedBubble !== matchNumber) {
         gameOver.classList.add("active");
-        // gameOver.innerHTML = "You Clicked the Wrong Number";
+        gameOver.children[2].textContent = "YOU HIT THE WRONG NUMBER";
         bubbleContainer.innerHTML = "";
         clearInterval(timeCounter);
         resizeObserver.disconnect();
       } else {
         createBubble();
         scoreCounter();
-      }
     }
+}
   };
   // Bubble Event On Click End
+
+  document.querySelector('#restart')
+  gameOver.onclick = (e) => {
+    gameOver.classList.remove('active');
+    window.location.reload();
+  }
+  
+  
 });
