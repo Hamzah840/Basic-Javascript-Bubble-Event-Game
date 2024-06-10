@@ -29,14 +29,16 @@ window.addEventListener("DOMContentLoaded", () => {
 
   //   Create function For Score
   const scoreCounter = () => {
+      score += 10;
+      displayScore1.textContent = score;
+      displayScore2.textContent = score;
+      displayHighScore.textContent = highScore;
+      
       if (highScore < score) {
         highScore = score;
         localStorage.setItem("highScore", highScore);
+        displayHighScore.textContent = highScore;
       }
-    score += 10;
-    displayScore1.textContent = score;
-    displayScore2.textContent = score;
-    displayHighScore.textContent = highScore;
   };
   //   Create function For Score
 
