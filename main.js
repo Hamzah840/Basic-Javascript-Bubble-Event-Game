@@ -33,11 +33,11 @@ window.addEventListener("DOMContentLoaded", () => {
       displayScore1.textContent = score;
       displayScore2.textContent = score;
       displayHighScore.textContent = highScore;
-      
+
       if (highScore < score) {
         highScore = score;
-        localStorage.setItem("highScore", highScore);
         displayHighScore.textContent = highScore;
+        localStorage.setItem("highScore", highScore);
       }
   };
   //   Create function For Score
