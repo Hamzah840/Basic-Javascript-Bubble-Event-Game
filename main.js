@@ -1,33 +1,52 @@
 window.addEventListener("DOMContentLoaded", () => {
-  let bubbleContainer = document.querySelector(".playBoard");
-  let randomNumber = "";
-  let hit = document.querySelector("#hit");
+  const bubbleContainer = document.querySelector(".playBoard");
+  const hit = document.querySelector("#hit");
+  const gameOver = document.querySelector(".gameOver");
+  const displayScore1 = document.querySelector("#score");
+  const displayScore2 = document.querySelector("#score2");
+  const displayTimeInterval = document.querySelector("#timer");
+  const restartButton = document.querySelector("#restart");
   let matchNumber;
-  let gameOver = document.querySelector(".gameOver");
   let timer = 60;
   let timeCounter;
   let score = 0;
+  let randomNumber = "";
+  let correctClicks = 0;
 
-//   Create function For Score
-let scoreCounter = ()=>{
-    score+=10;
-    document.querySelector('#score').textContent = score;
-    document.querySelector('#score2').textContent = score;
-}
-//   Create function For Score
+  const bubbleWidthInRem = 2.5;
+  const bubbleHeightInRem = 2.5;
+  const rootFontSize = parseFloat(
+    getComputedStyle(document.documentElement).fontSize
+  );
+  const bubbleWidth = rootFontSize * bubbleWidthInRem;
+  const bubbleHeight = rootFontSize * bubbleHeightInRem;
+
+  //   Create function For Score
+  const scoreCounter = () => {
+    score += 10;
+    displayScore1.textContent = score;
+    displayScore2.textContent = score;
+  };
+  //   Create function For Score
+
+  //   Create funtion to restart game
+  const endGame = (message) => {
+    gameOver.classList.add("active");
+    gameOver.children[2].textContent = message;
+    bubbleContainer.innerHTML = "";
+    clearInterval(timeCounter);
+    resizeObserver.disconnect();
+  };
+  //   Create funtion to restart game
 
   // Create Function For Timer
-  let runTimer = () => {
+  const runTimer = () => {
     timeCounter = setInterval(() => {
       if (timer > 0) {
         timer--;
-        document.querySelector("#timer").textContent = timer;
+        displayTimeInterval.textContent = timer;
       } else {
-        gameOver.classList.add("active");
-        gameOver.children[2].textContent = "YOU RAN OUT OF TIME";
-        bubbleContainer.innerHTML = "";
-        clearInterval(timeCounter);
-        resizeObserver.disconnect();
+        endGame("YOU RAN OUT OF TIME");
       }
     }, 1000);
   };
@@ -35,37 +54,27 @@ let scoreCounter = ()=>{
   // Create Function For Timer
 
   //   Bubbles Creation Start
-  let bubbleWidthInRem = 2.5;
-  let bubbleHeightInRem = 2.5;
-
-  let rootFontSize = parseFloat(
-    getComputedStyle(document.documentElement).fontSize
-  );
-
-  let bubbleWidth = rootFontSize * bubbleWidthInRem;
-  let bubbleHeight = rootFontSize * bubbleHeightInRem;
-
-  let randomColor = () => {
-    let hue = Math.floor(Math.random() * 360);
-    let saturation = Math.floor(Math.random() * 50) + 20 + "%";
-    let lightness = Math.floor(Math.random() * 40) + 25 + "%";
+  const randomColor = () => {
+    const hue = Math.floor(Math.random() * 360);
+    const saturation = Math.floor(Math.random() * 50) + 20 + "%";
+    const lightness = Math.floor(Math.random() * 40) + 25 + "%";
     return `hsl(${hue}, ${saturation}, ${lightness})`;
   };
 
-  let createBubble = () => {
+  const createBubble = () => {
     bubbleContainer.innerHTML = " ";
-    let parentWidth = bubbleContainer.clientWidth;
-    let parentHeight = bubbleContainer.clientHeight;
+    const parentWidth = bubbleContainer.clientWidth;
+    const parentHeight = bubbleContainer.clientHeight;
 
-    let bubblePerRow = Math.floor(parentWidth / bubbleWidth);
-    let bubblePerColumn = Math.floor(parentHeight / bubbleHeight);
-    let totalBubbles = bubblePerRow * bubblePerColumn;
+    const bubblePerRow = Math.floor(parentWidth / bubbleWidth);
+    const bubblePerColumn = Math.floor(parentHeight / bubbleHeight);
+    const totalBubbles = bubblePerRow * bubblePerColumn;
 
-    let fragment = document.createDocumentFragment();
+    const fragment = document.createDocumentFragment();
 
     for (let i = 1; i <= totalBubbles; i++) {
       randomNumber = Math.floor(Math.random() * 10);
-      let bubble = document.createElement("div");
+      const bubble = document.createElement("div");
       bubble.className = "bubble";
       bubble.style.backgroundColor = randomColor();
       bubble.textContent = randomNumber;
@@ -74,35 +83,33 @@ let scoreCounter = ()=>{
     matchNumber = hit.innerHTML = randomNumber;
     bubbleContainer.appendChild(fragment);
   };
-//   createBubble();
-
-  let resizeObserver = new ResizeObserver(createBubble);
-  resizeObserver.observe(bubbleContainer);
   //   Bubbles Creation End
 
   // Bubble Event On Click Start
   bubbleContainer.onclick = (e) => {
     if (e.target.classList.contains("bubble")) {
-      let clickedBubble = Number(e.target.textContent);
+      const clickedBubble = Number(e.target.textContent);
       if (clickedBubble !== matchNumber) {
-        gameOver.classList.add("active");
-        gameOver.children[2].textContent = "YOU HIT THE WRONG NUMBER";
-        bubbleContainer.innerHTML = "";
-        clearInterval(timeCounter);
-        resizeObserver.disconnect();
+        endGame("YOU HIT THE WRONG NUMBER");
       } else {
+        correctClicks++;
+        if (correctClicks === 1) {
+            correctClicks = 0;
+            timer++;
+            displayTimeInterval.textContent = timer;
+        }
         createBubble();
         scoreCounter();
+      }
     }
-}
   };
   // Bubble Event On Click End
 
-  document.querySelector('#restart')
-  gameOver.onclick = (e) => {
-    gameOver.classList.remove('active');
+  restartButton.onclick = (e) => {
+    gameOver.classList.remove("active");
     window.location.reload();
-  }
-  
-  
+  };
+
+  const resizeObserver = new ResizeObserver(createBubble);
+  resizeObserver.observe(bubbleContainer);
 });
