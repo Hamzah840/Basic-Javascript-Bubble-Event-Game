@@ -13,10 +13,10 @@ window.addEventListener("DOMContentLoaded", () => {
   let timer = 60;
   let timeCounter;
   let score = 0;
-  let highScore = localStorage.getItem("highScore") ? parseInt(localStorage.getItem("highScore")) : 0;
-  console.log(highScore);
   let randomNumber = "";
   let correctClicks = 0;
+
+  let highScore = localStorage.getItem("highScore") ? parseInt(localStorage.getItem("highScore")) : 0;
 
   const bubbleWidthInRem = 2.5;
   const bubbleHeightInRem = 2.5;

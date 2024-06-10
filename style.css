@@ -86,6 +86,7 @@ body {
     align-items: center;
     background-color: #e30e63;
     min-height: 3rem;
+    padding: 0.5rem;
 }
 
 .box {
@@ -95,7 +96,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* padding-left: 6px; */
+    margin: 4px;
     color: #fff;
     font-weight: bold;
     overflow: hidden;
@@ -155,5 +156,8 @@ body {
     }
     .gameOver, .gameStart {
         max-width: 100%;
+    }
+    .scoreBox {
+        width: 100%;
     }
 }
