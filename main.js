@@ -9,6 +9,8 @@ window.addEventListener("DOMContentLoaded", () => {
   const gameStart = document.querySelector(".gameStart");
   const play = document.querySelector("#start");
   const displayHighScore = document.querySelector("#highScore");
+  let highScore = localStorage.getItem("highScore") ? parseInt(localStorage.getItem("highScore")) : 0;
+  console.log(highScore);
   let matchNumber;
   let timer = 60;
   let timeCounter;
@@ -16,7 +18,6 @@ window.addEventListener("DOMContentLoaded", () => {
   let randomNumber = "";
   let correctClicks = 0;
 
-  let highScore = localStorage.getItem("highScore") ? parseInt(localStorage.getItem("highScore")) : 0;
 
   const bubbleWidthInRem = 2.5;
   const bubbleHeightInRem = 2.5;
@@ -28,14 +29,14 @@ window.addEventListener("DOMContentLoaded", () => {
 
   //   Create function For Score
   const scoreCounter = () => {
+      if (highScore < score) {
+        highScore = score;
+        localStorage.setItem("highScore", highScore);
+      }
     score += 10;
     displayScore1.textContent = score;
     displayScore2.textContent = score;
-    if (highScore < score) {
-      highScore = score;
-      displayHighScore.textContent = highScore;
-      localStorage.setItem("highScore", highScore);
-    }
+    displayHighScore.textContent = highScore;
   };
   //   Create function For Score
 
