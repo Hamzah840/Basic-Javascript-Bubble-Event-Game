@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bubble Event Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <div class="main">
@@ -27,7 +29,10 @@
         <div class="playBoard"></div>
     </div>
     <div class="gameOver">
-        <h3>Score: <span id="score2">0</span></h3>
+        <div class="scoreBox">
+            <h3>High Score: <span id="highScore">0</span></h3>
+            <h3>Score: <span id="score2">0</span></h3>
+        </div>
         <h1>Game Over!</h1>
         <p>You ran out of time</p>
         <!-- <a href="/">Restart</a> -->
@@ -35,16 +40,17 @@
     </div>
     <div class="gameStart">
         <h1>Game Rules</h1>
-    <p>Click the bubble with the number matching the "Hit" display.</p>
-    <p>You have 60 seconds to achieve the highest score possible.</p>
-    <p>Gain 1 extra second for each correct hit.</p>
-    <p>Earn 10 points for each correct hit.</p>
-    <p>The game ends immediately if you click the wrong number.</p>
-    <p>The game also ends when the timer runs out.</p>
+        <p>Click the bubble with the number matching the "Hit" display.</p>
+        <p>You have 60 seconds to achieve the highest score possible.</p>
+        <p>Gain 1 extra second for each correct hit.</p>
+        <p>Earn 10 points for each correct hit.</p>
+        <p>The game ends immediately if you click the wrong number.</p>
+        <p>The game also ends when the timer runs out.</p>
         <button id="start">Play</button>
     </div>
-    
+
 
     <script src="main.js"></script>
 </body>
+
 </html>

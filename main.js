@@ -6,12 +6,15 @@ window.addEventListener("DOMContentLoaded", () => {
   const displayScore2 = document.querySelector("#score2");
   const displayTimeInterval = document.querySelector("#timer");
   const restartButton = document.querySelector("#restart");
-  const gameStart = document.querySelector('.gameStart');
-  const play = document.querySelector('#start');
+  const gameStart = document.querySelector(".gameStart");
+  const play = document.querySelector("#start");
+  const displayHighScore = document.querySelector("#highScore");
   let matchNumber;
   let timer = 60;
   let timeCounter;
   let score = 0;
+  let highScore = localStorage.getItem("highScore") ? parseInt(localStorage.getItem("highScore")) : 0;
+  console.log(highScore);
   let randomNumber = "";
   let correctClicks = 0;
 
@@ -28,6 +31,11 @@ window.addEventListener("DOMContentLoaded", () => {
     score += 10;
     displayScore1.textContent = score;
     displayScore2.textContent = score;
+    if (highScore < score) {
+      highScore = score;
+      displayHighScore.textContent = highScore;
+      localStorage.setItem("highScore", highScore);
+    }
   };
   //   Create function For Score
 
@@ -52,7 +60,7 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     }, 1000);
   };
-//   runTimer();
+  //   runTimer();
   // Create Function For Timer
 
   //   Bubbles Creation Start
@@ -96,9 +104,9 @@ window.addEventListener("DOMContentLoaded", () => {
       } else {
         correctClicks++;
         if (correctClicks === 1) {
-            correctClicks = 0;
-            timer++;
-            displayTimeInterval.textContent = timer;
+          correctClicks = 0;
+          timer++;
+          displayTimeInterval.textContent = timer;
         }
         createBubble();
         scoreCounter();
@@ -107,7 +115,7 @@ window.addEventListener("DOMContentLoaded", () => {
   };
   // Bubble Event On Click End
 
-const startNewGame = () => {
+  const startNewGame = () => {
     timer = 60;
     displayTimeInterval.textContent = timer;
     score = 0;
@@ -115,18 +123,17 @@ const startNewGame = () => {
     displayScore2.textContent = 0;
     runTimer();
     createBubble();
-}
-play.onclick = () => {
-    gameStart.style.display = 'none';
+  };
+  play.onclick = () => {
+    gameStart.style.display = "none";
     startNewGame();
-}
+  };
 
-restartButton.onclick = (e) => {
+  restartButton.onclick = (e) => {
     gameOver.classList.remove("active");
     startNewGame();
   };
 
   const resizeObserver = new ResizeObserver(createBubble);
   resizeObserver.observe(bubbleContainer);
-  
 });

@@ -12,7 +12,11 @@ body {
     user-select: none;
     position: relative;
 }
-
+.scoreBox {
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+}
 .gameOver, .gameStart {
     background-color: #000000da;
     width: calc(100% - 2rem);
