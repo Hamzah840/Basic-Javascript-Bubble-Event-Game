@@ -6,6 +6,8 @@ window.addEventListener("DOMContentLoaded", () => {
   const displayScore2 = document.querySelector("#score2");
   const displayTimeInterval = document.querySelector("#timer");
   const restartButton = document.querySelector("#restart");
+  const gameStart = document.querySelector('.gameStart');
+  const play = document.querySelector('#start');
   let matchNumber;
   let timer = 60;
   let timeCounter;
@@ -50,7 +52,7 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     }, 1000);
   };
-  runTimer();
+//   runTimer();
   // Create Function For Timer
 
   //   Bubbles Creation Start
@@ -105,11 +107,26 @@ window.addEventListener("DOMContentLoaded", () => {
   };
   // Bubble Event On Click End
 
-  restartButton.onclick = (e) => {
+const startNewGame = () => {
+    timer = 60;
+    displayTimeInterval.textContent = timer;
+    score = 0;
+    displayScore1.textContent = 0;
+    displayScore2.textContent = 0;
+    runTimer();
+    createBubble();
+}
+play.onclick = () => {
+    gameStart.style.display = 'none';
+    startNewGame();
+}
+
+restartButton.onclick = (e) => {
     gameOver.classList.remove("active");
-    window.location.reload();
+    startNewGame();
   };
 
   const resizeObserver = new ResizeObserver(createBubble);
   resizeObserver.observe(bubbleContainer);
+  
 });

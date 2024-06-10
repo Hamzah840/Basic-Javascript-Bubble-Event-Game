@@ -13,7 +13,7 @@ body {
     position: relative;
 }
 
-.gameOver {
+.gameOver, .gameStart {
     background-color: #000000da;
     width: 80%;
     height: calc(80vh - 4rem);
@@ -27,14 +27,20 @@ body {
     align-items: center;
     flex-direction: column;
     color: #fff;
-    font-size: 1.2rem;
+    /* font-size: 1.2rem; */
     border-radius: 10px;
 }
+
+.gameOver.active {
+    display: flex;
+}
+
 .gameOver h1 {
     text-transform: uppercase;
     font-size: 4rem;
 }
-.gameOver button {
+
+.gameOver button, .gameStart button {
     padding: 0.5rem 1rem;
     outline: none;
     border: none;
@@ -48,10 +54,12 @@ body {
     letter-spacing: 1px;
     transition: 0.3s;
 }
-.gameOver button:hover {
+
+.gameOver button:hover, .gameStart button:hover {
     background-color: #b00b4d;
 }
-.gameOver.active {
+
+.gameStart {
     display: flex;
 }
 
@@ -63,6 +71,7 @@ body {
     box-shadow: 0 0 20px #9992;
     overflow: hidden;
 }
+
 .topbar {
     display: flex;
     justify-content: space-evenly;
@@ -70,6 +79,7 @@ body {
     background-color: #e30e63;
     min-height: 3rem;
 }
+
 .box {
     border: 1px solid #fff;
     border-radius: 5px;
@@ -82,14 +92,19 @@ body {
     font-weight: bold;
     overflow: hidden;
 }
+
 .box span {
     padding: 10px;
 }
-#hit, #timer, #score {
+
+#hit,
+#timer,
+#score {
     background-color: #fff;
     color: #000;
     cursor: pointer;
 }
+
 .playBoard {
     background-color: #ffcde1;
     background-color: #fff;
@@ -102,6 +117,7 @@ body {
     gap: 0.5rem;
     padding: 10px;
 }
+
 .bubble {
     background-color: #9544e6;
     width: 2.5rem;
@@ -117,6 +133,7 @@ body {
     color: #fff;
     font-size: 20px;
 }
+
 .bubble:hover {
     transform: translateY(1px);
 }
